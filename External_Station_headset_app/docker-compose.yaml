@@ -23,8 +23,21 @@ services:
       - ./backend/app:/code/app
     depends_on:
       - db
+      - mqtt_broker
 
-  # Service 3: The Frontend
+  # Service 3: The MQTT Broker (shared with the MR headset app over the LAN)
+  mqtt_broker:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    ports:
+      # Host port 11883: Windows/Hyper-V often reserves 1835-1934, which blocks 1883.
+      # The backend talks to mqtt_broker:1883 inside Docker; the headset uses <PC LAN IP>:11883.
+      - "11883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+
+  # Service 4: The Frontend
   frontend:
     build: ./frontend
     ports:

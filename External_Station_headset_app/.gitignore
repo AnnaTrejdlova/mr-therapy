@@ -1,3 +1,6 @@
 .env
 __pycache__
 *~
+# Mosquitto runtime files (password hashes, persistence)
+mosquitto/config/passwd
+mosquitto/data/

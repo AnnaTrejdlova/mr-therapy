@@ -72,3 +72,11 @@ def handle_device_status(db: Session, hardware_id: str):
         device.last_seen = datetime.now()
         device.is_online = True
         db.commit()
+    else:
+        # Discovery is sent only once, 5 s after the app starts. If the backend
+        # was not subscribed at that moment (started later, restarted, broker
+        # restart), the headset would stay unknown forever even though its
+        # heartbeats keep arriving. Register it from the heartbeat instead.
+        name = f"Headset {hardware_id[:4].upper()}"
+        handle_device_discovery(db, hardware_id, name)
+        print(f"👋 DISCOVERY (z heartbeatu): Zařízení {name} ({hardware_id}) zaregistrováno.", flush=True)
