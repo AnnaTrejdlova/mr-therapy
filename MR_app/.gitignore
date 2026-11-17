@@ -105,8 +105,10 @@ ignore.conf
 Assets/App/Network/MQTT/Data/MQTTCredentials.asset
 Assets/App/Network/MQTT/Data/MQTTCredentials.asset.meta
 # Any real MQTT credentials asset (keeps MQTTCredentials_example.asset tracked)
-Assets/App/Network/MQTT/Data/MQTT*Credentials.asset
-Assets/App/Network/MQTT/Data/MQTT*Credentials.asset.meta
+Assets/App/Network/MQTT/Data/MQTT*Credentials*.asset
+Assets/App/Network/MQTT/Data/MQTT*Credentials*.asset.meta
+!Assets/App/Network/MQTT/Data/MQTTCredentials_example.asset
+!Assets/App/Network/MQTT/Data/MQTTCredentials_example.asset.meta
 
 # Editor settings
 .vscode/

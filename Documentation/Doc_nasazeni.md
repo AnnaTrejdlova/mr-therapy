@@ -7,7 +7,7 @@ Před začátkem nasazení se ujistěte, že máte k dispozici:
 * Nainstalovaný **Docker**.
 * Vývojové prostředí **Unity** (s modulem Android Build Support).
 * Headset **Meta Quest 3** připojený k počítači.
-* **MQTT broker**. Projekt obsahuje lokální broker Mosquitto, který se spouští spolu s ostatními kontejnery (viz [Část 0](#část-0-lokální-mqtt-broker-mosquitto)). Případně lze použít externí broker, např. cloudovou službu HiveMQ.
+* **MQTT broker**. Projekt obsahuje lokální broker Mosquitto, který se spouští spolu s ostatními kontejnery (viz [Část 0](#část-0-lokální-mqtt-broker-mosquitto)). Případně lze použít externí broker s přihlášením jménem a heslem (TLS na portu 8883).
 * **Společná lokální síť:** Pro správné fungování video streamu (WebRTC) musí být headset i počítač s asistenční aplikací připojeny do **stejné lokální sítě (stejná Wi-Fi)**.
 
 ---
