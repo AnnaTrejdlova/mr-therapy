@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AttentionTrackingSettings } from './models/AttentionTrackingSettings';
 export type { CorsiBlocksSettings } from './models/CorsiBlocksSettings';
+export { CubeArcSettings } from './models/CubeArcSettings';
 export type { DeviceResponse } from './models/DeviceResponse';
 export type { GameCommand } from './models/GameCommand';
 export type { HTTPValidationError } from './models/HTTPValidationError';

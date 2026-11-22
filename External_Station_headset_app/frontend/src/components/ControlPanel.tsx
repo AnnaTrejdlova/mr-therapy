@@ -252,6 +252,7 @@ const ControlPanel = ({ deviceId, patientId, onSessionStateChange }: ControlPane
             <MenuItem value="location_recall">Location Recall</MenuItem>
             <MenuItem value="attention_tracking">Attention Tracking</MenuItem>
             <MenuItem value="mr_puzzle">Mr. Puzzle</MenuItem>
+            <MenuItem value="cube_arc">Cube Arc</MenuItem>
           </Select>
         </FormControl>
 

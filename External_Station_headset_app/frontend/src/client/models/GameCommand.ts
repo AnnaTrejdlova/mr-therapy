@@ -4,10 +4,11 @@
 /* eslint-disable */
 import type { AttentionTrackingSettings } from './AttentionTrackingSettings';
 import type { CorsiBlocksSettings } from './CorsiBlocksSettings';
+import type { CubeArcSettings } from './CubeArcSettings';
 import type { LocationRecallSettings } from './LocationRecallSettings';
 import type { MrPuzzleSettings } from './MrPuzzleSettings';
 import type { RotationCubeSettings } from './RotationCubeSettings';
 export type GameCommand = {
-    payload: (RotationCubeSettings | CorsiBlocksSettings | LocationRecallSettings | AttentionTrackingSettings | MrPuzzleSettings);
+    payload: (RotationCubeSettings | CorsiBlocksSettings | LocationRecallSettings | AttentionTrackingSettings | MrPuzzleSettings | CubeArcSettings);
 };
 

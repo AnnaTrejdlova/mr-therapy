@@ -74,3 +74,21 @@ U všech her, které se odehrávají u stolu, je nezbytné, **aby se senior při
 
 * **Úroveň 3:**
   „Předloha má opět dvě patra. Pod ní ale nyní visí i dílky, které do předlohy vůbec nepatří. Vaším úkolem je vybrat ty správné, vložit je přímo do předlohy a ty nepotřebné nechat ležet ladem.“V
+
+---
+
+## 6. Hra: Přenášení kostky po oblouku (Cube Arc)
+
+*(Poznámka pro operátora: Hra pracuje se skutečnou kostkou s vytištěnými markery na všech šesti stěnách, viz [Doc_nasazeni.md](Doc_nasazeni.md), Část 3. Senior sedí u stolu a kostku musí mít ve výhledu brýlí. Kolo končí samo, jakmile kostka leží v cíli. Každé další kolo začíná z opačné strany. Pokud se objeví hláška „Kostka není vidět“, požádejte seniora, ať se na kostku podívá, případně ať ji nezakrývá celou dlaní.)*
+
+* **Příprava (na začátku každé úrovně):**
+  „Položte kostku na stůl před sebe a nechte ji chvíli ležet.“
+
+* **Úroveň 1:**
+  „Na stole se objeví zelený kruh a nad stolem barevný oblouk, který vede nahoru a přes vrchol dolů do žlutého cíle na druhé straně. Posuňte kostku do zeleného kruhu. Pak kostku zvedněte a přeneste ji po oblouku nahoru, přes vrchol a dolů do žlutého cíle, kde ji položte. Průhledná kostka vám ukazuje, kudy jít. Dokud je oblouk zelený, jdete správně. Když zoranžoví nebo zčervená, vraťte kostku blíž k oblouku.“
+
+* **Úroveň 2:**
+  „Úkol je stejný, ale oblouk je vyšší a užší. Snažte se vést kostku přesně po oblouku.“
+
+* **Úroveň 3:**
+  „Oblouk je ještě užší a vidíte jen jeho nejbližší část před sebou. Průhledná kostka už cestu neukazuje. Přeneste kostku po oblouku až do cíle a tam ji položte.“

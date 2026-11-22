@@ -57,6 +57,8 @@ MonoBehaviour:
     prefab: {fileID: 632438005896925016, guid: b053aab76a776b443ad83a9d7b8116f8, type: 3}
   - gameId: attention_tracking
     prefab: {fileID: 635176190410452749, guid: 179de1c10424344448c81674ea8be915, type: 3}
+  - gameId: cube_arc
+    prefab: {fileID: 8380622387334274713, guid: 0a3fdaa1a172b844ea45d6c2096c1240, type: 3}
 --- !u!114 &4516387005266903918
 MonoBehaviour:
   m_ObjectHideFlags: 0

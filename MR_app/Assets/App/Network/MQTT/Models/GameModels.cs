@@ -50,6 +50,12 @@ namespace App.Models
         public int piece_count;
     }
 
+    [Serializable]
+    public class CubeArcConfig : BaseConfig
+    {
+        public string start_side; // "left" | "right" – strana, ze které začíná první kolo
+    }
+
     // --- OB�LKA (To, co re�ln� p�ijde p�es MQTT) ---
     // Mus� odpov�dat tomu, co pos�l� Python Controller
     [Serializable]

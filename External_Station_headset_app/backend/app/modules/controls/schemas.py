@@ -36,7 +36,19 @@ class AttentionTrackingSettings(BaseGameSettings):
 
 class MrPuzzleSettings(BaseGameSettings):
     game_type: Literal["mr_puzzle"] = "mr_puzzle"
-    
+
+
+class CubeArcSettings(BaseGameSettings):
+    game_type: Literal["cube_arc"] = "cube_arc"
+    start_side: Literal["left", "right"] = Field(
+        default="left",
+        json_schema_extra={
+            "ui_type": "select",
+            "label": "Začít ze strany",
+            "options": ["left", "right"],
+        },
+    )
+
 
 # HLAVNÍ MODEL 
 class GameCommand(BaseModel):
@@ -44,6 +56,7 @@ class GameCommand(BaseModel):
         RotationCubeSettings, 
         CorsiBlocksSettings, 
         LocationRecallSettings, 
-        AttentionTrackingSettings, 
-        MrPuzzleSettings
+        AttentionTrackingSettings,
+        MrPuzzleSettings,
+        CubeArcSettings
     ] = Field(..., discriminator="game_type")

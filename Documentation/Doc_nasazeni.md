@@ -90,3 +90,36 @@ Otevřete projekt klientské aplikace v prostředí Unity. Přejděte do složky
 **2. Build do zařízení**
 Ujistěte se, že máte headset Meta Quest 3 připojený k PC a v Unity je zvolena cílová platforma Android. Následně v menu zvolte `File -> Build and Run`. Aplikace se zkompiluje a automaticky spustí v brýlích.
 
+---
+
+## Část 3: Fyzická kostka pro hru Cube Arc
+
+Hra *Přenášení kostky po oblouku* sleduje skutečnou kostku kamerou brýlí. Na každé stěně kostky musí být nalepený jeden AprilTag marker (rodina `tagStandard41h12`, ID 0–5).
+
+**1. Tisk markerů**
+Hotový arch pro kostku o hraně 50 mm je v `Documentation/markers/cube_markers_50mm.pdf` (tag má 45 mm). Tiskněte ve **100 %** (vypněte „Přizpůsobit stránce“) a pravítkem zkontrolujte, že měřítko 100 mm na archu opravdu měří 100 mm. Tiskněte matně, lesklý papír odráží světlo a detekce pak selhává.
+
+Menší markery jsou kamerou vidět jen na kratší vzdálenost. Pokud detekce na 50 mm kostce vypadává, zkuste u `AprilTagCubeTracker` nastavit `Quad Decimation` na 1 (přesnější, ale pomalejší), nebo použijte větší kostku. Pro jinou velikost kostky (40–85 mm) vygenerujte nový arch:
+```bash
+python Documentation/markers/generate_cube_markers.py --edge-mm 60
+```
+Skript vypíše hodnoty `cubeEdge` a `tagSize`, které je pak potřeba zadat v Unity u komponenty `AprilTagCubeTracker` v prefabu hry `CubeArcGame`.
+
+**2. Lepení**
+Vystřihněte šest čtverců podle šedých čar a nalepte je tak, jak je napsáno pod každým z nich. Šipka nad tagem označuje jeho horní hranu. Postavte kostku stěnou s ID 0 nahoru a dívejte se na stěnu s ID 2:
+
+| ID | Stěna | Horní hrana tagu |
+|---|---|---|
+| 0 | horní | směrem ke stěně ID 3 (od vás) |
+| 1 | spodní | směrem ke stěně ID 3 |
+| 2 | přední (k vám) | nahoru |
+| 3 | zadní | nahoru |
+| 4 | levá | nahoru |
+| 5 | pravá | nahoru |
+
+Markery musí ležet rovně, bez bublin a bez přelepení průhlednou páskou s odlesky.
+
+**3. Ověření sledování**
+V prefabu `CubeArcGame` zapněte u `MainCubeArcManager` volbu `Show Tracking Debug`. Na brýlích se pak u kostky zobrazí osy každého rozpoznaného tagu (modrá osa Z musí mířit dovnitř kostky), žlutý obrys odhadnuté kostky a frekvence detekce. Obrys má sedět na skutečné kostce i při otáčení. Detekce by měla běžet alespoň 15× za sekundu. Podrobné hodnoty se vypisují i do logu (`adb logcat -s Unity`, řádky `[CubeTracker]`).
+
+Bez vytištěné kostky lze hru vyzkoušet s volbou `Force Controller Source`: kostku pak zastupuje pravý ovladač (v Editoru se ovladač používá vždy).
