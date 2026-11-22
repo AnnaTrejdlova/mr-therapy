@@ -23,4 +23,10 @@ public interface ICubePoseSource
 
     /// <summary>Zda zdroj může na tomto zařízení vůbec fungovat.</summary>
     bool IsAvailable { get; }
+
+    /// <summary>Zdroj sleduje skutečnou kostku (natočení odpovídá ležící kostce). Ovladač místo kostky = false.</summary>
+    bool IsPhysicalCube { get; }
+
+    /// <summary>Póza je právě jen odhadnutá (např. z pohybu ruky při zakrytí kostky), ne naměřená.</summary>
+    bool IsEstimated { get; }
 }

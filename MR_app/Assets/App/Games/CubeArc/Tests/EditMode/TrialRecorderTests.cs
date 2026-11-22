@@ -101,6 +101,21 @@ namespace CubeArc.Tests
         }
 
         [Test]
+        public void HandBridgedTime_IsCounted_AndStillCountsAsTracked()
+        {
+            var rec = new TrialRecorder(Arc, 0.04f, 0f);
+            rec.Tick(0f, true, Arc.PointAt(0f));
+            rec.Tick(0.5f, true, Arc.PointAt(0.2f), estimated: true);
+            rec.Tick(1.0f, true, Arc.PointAt(0.4f), estimated: true);
+            rec.Tick(1.5f, true, Arc.PointAt(0.6f));
+
+            TrialSummary s = rec.BuildSummary();
+            Assert.That(s.hand_bridged_s, Is.EqualTo(1f).Within(0.01f));
+            Assert.That(s.tracking_lost_s, Is.EqualTo(0f));
+            Assert.That(s.max_progress, Is.EqualTo(0.6f).Within(0.01f));
+        }
+
+        [Test]
         public void Progress_NeverDecreases()
         {
             var rec = new TrialRecorder(Arc, 0.04f, 0f);

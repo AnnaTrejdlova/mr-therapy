@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracker: {fileID: 7821811239847018769}
+  handBridge: {fileID: 5013158376263707306}
   lineMaterial: {fileID: 2100000, guid: a8c76c38864381c42a42e42bb0d0e3fe, type: 2}
   axisLength: 0.04
 --- !u!1 &7102888320386995668
@@ -58,6 +59,7 @@ GameObject:
   - component: {fileID: 2466903993353421615}
   - component: {fileID: 7821811239847018769}
   - component: {fileID: 4639298871265419558}
+  - component: {fileID: 5013158376263707306}
   m_Layer: 0
   m_Name: Tracking
   m_TagString: Untagged
@@ -118,6 +120,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubeEdge: 0.05
   offset: {x: 0, y: 0, z: 0.05}
+--- !u!114 &5013158376263707306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102888320386995668}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e520906f9c689646aa23f879a8940aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  markerTracker: {fileID: 7821811239847018769}
+  bridgeWithHands: 1
+  maxBridgeDuration: 3
+  markerStaleAfter: 0.12
 --- !u!1 &8380622387334274713
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   markerTracker: {fileID: 7821811239847018769}
+  handBridge: {fileID: 5013158376263707306}
   controllerSource: {fileID: 4639298871265419558}
   forceControllerSource: 0
   visualsMaterial: {fileID: 2100000, guid: a8c76c38864381c42a42e42bb0d0e3fe, type: 2}

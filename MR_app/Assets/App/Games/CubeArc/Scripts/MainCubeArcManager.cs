@@ -10,6 +10,8 @@ public class MainCubeArcManager : MonoBehaviour, IMiniGame
 {
     [Header("Zdroje pózy kostky")]
     [SerializeField] private AprilTagCubeTracker markerTracker;
+    [Tooltip("Obal nad markerTrackerem, který při zakrytí kostky pokračuje podle ruky. Prázdné = jen markery.")]
+    [SerializeField] private HandBridgedCubeSource handBridge;
     [SerializeField] private ControllerCubePoseSource controllerSource;
     [Tooltip("Použít ovladač místo fyzické kostky i na brýlích (testování bez kostky).")]
     [SerializeField] private bool forceControllerSource = false;
@@ -65,7 +67,7 @@ public class MainCubeArcManager : MonoBehaviour, IMiniGame
             return;
         }
 
-        if (debugOverlay != null) debugOverlay.gameObject.SetActive(showTrackingDebug && source is AprilTagCubeTracker);
+        if (debugOverlay != null) debugOverlay.gameObject.SetActive(showTrackingDebug && source.IsPhysicalCube);
 
         StopGame();
         var levelObject = new GameObject($"CubeArcLevel{difficulty}");
@@ -94,11 +96,17 @@ public class MainCubeArcManager : MonoBehaviour, IMiniGame
         {
             if (controllerSource != null) controllerSource.enabled = false;
             markerTracker.enabled = true;
+            if (handBridge != null)
+            {
+                handBridge.enabled = true;
+                return handBridge;
+            }
             return markerTracker;
         }
 
         // Kamera se nepoužije: tracker vypneme, ať zbytečně nestahuje obraz.
         if (markerTracker != null) markerTracker.enabled = false;
+        if (handBridge != null) handBridge.enabled = false;
         if (controllerSource != null && controllerSource.IsAvailable)
         {
             controllerSource.enabled = true;

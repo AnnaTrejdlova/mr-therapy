@@ -24,6 +24,8 @@ public class ControllerCubePoseSource : MonoBehaviour, ICubePoseSource
     public float LastSeenTime => lastSeenTime;
     public float CubeEdge => cubeEdge;
     public bool IsAvailable => rig != null;
+    public bool IsPhysicalCube => false;
+    public bool IsEstimated => false;
 
     private void Awake()
     {

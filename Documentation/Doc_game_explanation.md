@@ -79,7 +79,7 @@ U všech her, které se odehrávají u stolu, je nezbytné, **aby se senior při
 
 ## 6. Hra: Přenášení kostky po oblouku (Cube Arc)
 
-*(Poznámka pro operátora: Hra pracuje se skutečnou kostkou s vytištěnými markery na všech šesti stěnách, viz [Doc_nasazeni.md](Doc_nasazeni.md), Část 3. Senior sedí u stolu a kostku musí mít ve výhledu brýlí. Kolo končí samo, jakmile kostka leží v cíli. Každé další kolo začíná z opačné strany. Pokud se objeví hláška „Kostka není vidět“, požádejte seniora, ať se na kostku podívá, případně ať ji nezakrývá celou dlaní.)*
+*(Poznámka pro operátora: Hra pracuje se skutečnou kostkou s vytištěnými markery na všech šesti stěnách, viz [Doc_nasazeni.md](Doc_nasazeni.md), Část 3. Senior sedí u stolu a kostku musí mít ve výhledu brýlí. Kolo končí samo, jakmile kostka leží v cíli. Každé další kolo začíná z opačné strany. Ukažte seniorovi, jak kostku držet: **konečky prstů za hrany nebo rohy**, ne celou dlaní přes stěnu. Marker přestane fungovat, jakmile prst zasáhne do jeho prostřední části. Krátké zakrytí během přenášení hra zvládne (kostka chvíli „jede s rukou“), delší ne. Pokud se objeví hláška „Kostka není vidět“, požádejte seniora, ať se na kostku podívá a uvolní úchop.)*
 
 * **Příprava (na začátku každé úrovně):**
   „Položte kostku na stůl před sebe a nechte ji chvíli ležet.“

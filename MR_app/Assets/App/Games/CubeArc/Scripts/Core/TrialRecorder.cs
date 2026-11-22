@@ -19,6 +19,8 @@ namespace CubeArc
         public float max_height_cm;
         public int stops;
         public float tracking_lost_s;
+        /// <summary>Jak dlouho byla poloha kostky jen odhadnutá z ruky (kostka zakrytá) [s].</summary>
+        public float hand_bridged_s;
         public float max_progress;
         /// <summary>Průměrná odchylka kolmo na rovinu oblouku [cm], + od pacienta (drift dopředu/dozadu).</summary>
         public float mean_depth_cm;
@@ -53,6 +55,7 @@ namespace CubeArc
         private bool wasInside = true;
         private float maxHeight;
         private float lostTime;
+        private float bridgedTime;
         private float maxProgress;
 
         private float stillTime;
@@ -79,10 +82,12 @@ namespace CubeArc
         /// <summary>Zavolat každý snímek.</summary>
         /// <param name="tracked">Zda je kostka právě viditelná.</param>
         /// <param name="position">Střed kostky ve světě (ignoruje se, když není vidět).</param>
-        public void Tick(float time, bool tracked, Vector3 position)
+        /// <param name="estimated">Poloha je jen odhadnutá (kostka zakrytá, jede s rukou).</param>
+        public void Tick(float time, bool tracked, Vector3 position, bool estimated = false)
         {
             float dt = Mathf.Max(0f, time - lastTime);
             lastTime = time;
+            if (tracked && estimated) bridgedTime += dt;
 
             if (!tracked)
             {
@@ -161,6 +166,7 @@ namespace CubeArc
                 max_height_cm = Round(maxHeight * 100f, 10f),
                 stops = stops,
                 tracking_lost_s = Round(lostTime, 100f),
+                hand_bridged_s = Round(bridgedTime, 100f),
                 max_progress = Round(maxProgress, 100f),
                 mean_depth_cm = trackedTime > 0f ? Round(depthTimeSum / trackedTime * 100f, 10f) : 0f,
                 samples = new List<float[]>(samples)

@@ -186,7 +186,7 @@ public class CubeArcLevelManager : MonoBehaviour
 
         Vector3 p = source.Pose.position;
         bool inStart = HorizontalDistance(p, arc.Start) <= trail.StartRingRadius;
-        if (!inStart || !IsResting(p) || !IsStill()) { phaseStillTime = 0f; return; }
+        if (!inStart || source.IsEstimated || !IsResting(p) || !IsStill()) { phaseStillTime = 0f; return; }
 
         phaseStillTime += Time.deltaTime;
         if (phaseStillTime >= StartStillTime) StartTrial();
@@ -212,7 +212,7 @@ public class CubeArcLevelManager : MonoBehaviour
     {
         bool tracked = source.IsTracked;
         Vector3 p = source.Pose.position;
-        recorder.Tick(Time.time, tracked, p);
+        recorder.Tick(Time.time, tracked, p, source.IsEstimated);
 
         // Ztráta kostky z dohledu
         float lostFor = Time.time - source.LastSeenTime;
@@ -245,7 +245,8 @@ public class CubeArcLevelManager : MonoBehaviour
         trail.UpdateGhost(settings.showGhost, Mathf.Min(1f, progress + GhostLead), Time.deltaTime);
 
         // Konec kola: kostka leží v cíli a je v klidu.
-        bool atGoal = tracked && progress >= FinishProgress
+        // Konec jen podle skutečně naměřené polohy, ne podle odhadu z ruky.
+        bool atGoal = tracked && !source.IsEstimated && progress >= FinishProgress
                       && HorizontalDistance(p, arc.End) <= trail.GoalRingRadius
                       && IsResting(p) && IsStill();
         phaseStillTime = atGoal ? phaseStillTime + Time.deltaTime : 0f;
@@ -304,7 +305,8 @@ public class CubeArcLevelManager : MonoBehaviour
     /// <summary>Kostka leží na některé stěně (ne v ruce nakřivo). Ovladač místo kostky se nekontroluje.</summary>
     private bool IsLyingFlat()
     {
-        if (!(source is AprilTagCubeTracker)) return true;
+        if (!source.IsPhysicalCube) return true;
+        if (source.IsEstimated) return false; // odhad z ruky = kostka je v ruce, ne na stole
         Quaternion r = source.Pose.rotation;
         float best = 0f;
         Vector3[] axes = { Vector3.up, Vector3.right, Vector3.forward };

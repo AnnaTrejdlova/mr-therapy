@@ -67,6 +67,8 @@ public class AprilTagCubeTracker : MonoBehaviour, ICubePoseSource
     public float LastSeenTime => lastSeenTime;
     public float CubeEdge => cubeEdge;
     public bool IsAvailable => cameraAccess != null && PassthroughCameraAccess.IsSupported;
+    public bool IsPhysicalCube => true;
+    public bool IsEstimated => false;
 
     // --- Ladicí údaje ---
     public IReadOnlyList<WorldTag> LastTags => lastTags;

@@ -10,6 +10,7 @@ using UnityEngine;
 public class CubeTrackerDebugOverlay : MonoBehaviour
 {
     [SerializeField] private AprilTagCubeTracker tracker;
+    [SerializeField] private HandBridgedCubeSource handBridge;
     [SerializeField] private Material lineMaterial;
     [SerializeField] private float axisLength = 0.04f;
 
@@ -82,8 +83,14 @@ public class CubeTrackerDebugOverlay : MonoBehaviour
 
         string ids = "";
         foreach (var t in tags) ids += $"{t.Id}({t.Squareness:F2}) ";
+        string hand = "";
+        if (handBridge != null)
+        {
+            hand = "\nruka: " + (handBridge.HoldingHand == "" ? "nedrží" : "drží " + handBridge.HoldingHand);
+            if (handBridge.IsEstimated) hand += "  <color=#FFB020>kostka zakrytá – podle ruky</color>";
+        }
         statsText.text = $"kamera {tracker.ProcessedFramesPerSecond:F0}/s  detekce {tracker.DetectionsPerSecond:F0}/s  " +
-                         $"{tracker.LastProcessMilliseconds:F0} ms\ntagy: {ids}";
+                         $"{tracker.LastProcessMilliseconds:F0} ms\ntagy: {ids}{hand}";
     }
 
     private LineRenderer[] CreateAxes()
