@@ -1,0 +1,3 @@
+# Generated PDFs contain no binary bytes, so Git would otherwise convert their
+# line endings (core.autocrlf) and break the internal byte offsets.
+*.pdf binary
