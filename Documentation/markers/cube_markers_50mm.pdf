@@ -9,12 +9,12 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 10694 >>
+<< /Length 10981 >>
 stream
 0 g
-BT /F1 13.0 Tf 42.52 802.20 Td (Cube Arc - markery na kostku 50 mm \(AprilTag tagStandard41h12\)) Tj ET
-BT /F1 9.0 Tf 42.52 785.20 Td (Tisknout ve 100 % \(bez prizpusobeni strance\). Zkontrolujte meritko pravitkem:) Tj ET
-BT /F1 9.0 Tf 42.52 771.02 Td (Unity / AprilTagCubeTracker: cubeEdge = 0.050, tagSize = 0.0250) Tj ET
+BT /F1 13.0 Tf 42.52 802.20 Td (Cube Arc – markery na kostku 50 mm \(AprilTag tagStandard41h12\)) Tj ET
+BT /F1 9.0 Tf 42.52 785.20 Td (Tisknìte ve 100 % \(bez pøizpùsobení stránce\). Pravítkem zkontrolujte, že mìøítko mìøí 100 mm:) Tj ET
+BT /F1 9.0 Tf 42.52 771.02 Td (Nastavení v Unity \(AprilTagCubeTracker\): cubeEdge = 0.050, tagSize = 0.0250) Tj ET
 42.52 754.02 283.46 3.40 re f
 42.52 754.02 0.85 -7.09 re f
 70.87 754.02 0.85 -7.09 re f
@@ -80,7 +80,8 @@ BT /F1 9.0 Tf 334.49 751.18 Td (100 mm) Tj ET
 0.4 g
 121.89 716.46 m 133.23 716.46 l 127.56 722.13 l f
 0 g
-BT /F1 7.5 Tf 56.69 566.93 Td (ID 0 - HORNI stena. Horni hrana tagu ke stene ID 3.) Tj ET
+BT /F1 8.5 Tf 56.69 566.93 Td (ID 0 – HORNÍ stìna) Tj ET
+BT /F1 7.5 Tf 56.69 555.59 Td (Horní hrana tagu ke stìnì ID 3.) Tj ET
 0.6 G 0.3 w
 269.29 581.10 141.73 141.73 re S
 0 g
@@ -127,7 +128,8 @@ BT /F1 7.5 Tf 56.69 566.93 Td (ID 0 - HORNI stena. Horni hrana tagu ke stene ID 
 0.4 g
 334.49 716.46 m 345.83 716.46 l 340.16 722.13 l f
 0 g
-BT /F1 7.5 Tf 269.29 566.93 Td (ID 1 - SPODNI stena. Horni hrana tagu ke stene ID 3.) Tj ET
+BT /F1 8.5 Tf 269.29 566.93 Td (ID 1 – SPODNÍ stìna) Tj ET
+BT /F1 7.5 Tf 269.29 555.59 Td (Horní hrana tagu ke stìnì ID 3.) Tj ET
 0.6 G 0.3 w
 56.69 394.02 141.73 141.73 re S
 0 g
@@ -174,7 +176,8 @@ BT /F1 7.5 Tf 269.29 566.93 Td (ID 1 - SPODNI stena. Horni hrana tagu ke stene I
 0.4 g
 121.89 529.37 m 133.23 529.37 l 127.56 535.04 l f
 0 g
-BT /F1 7.5 Tf 56.69 379.84 Td (ID 2 - PREDNI stena. Horni hrana tagu nahoru \(k ID 0\).) Tj ET
+BT /F1 8.5 Tf 56.69 379.84 Td (ID 2 – PØEDNÍ stìna) Tj ET
+BT /F1 7.5 Tf 56.69 368.50 Td (Horní hrana tagu nahoru \(k ID 0\).) Tj ET
 0.6 G 0.3 w
 269.29 394.02 141.73 141.73 re S
 0 g
@@ -221,7 +224,8 @@ BT /F1 7.5 Tf 56.69 379.84 Td (ID 2 - PREDNI stena. Horni hrana tagu nahoru \(k 
 0.4 g
 334.49 529.37 m 345.83 529.37 l 340.16 535.04 l f
 0 g
-BT /F1 7.5 Tf 269.29 379.84 Td (ID 3 - ZADNI stena. Horni hrana tagu nahoru \(k ID 0\).) Tj ET
+BT /F1 8.5 Tf 269.29 379.84 Td (ID 3 – ZADNÍ stìna) Tj ET
+BT /F1 7.5 Tf 269.29 368.50 Td (Horní hrana tagu nahoru \(k ID 0\).) Tj ET
 0.6 G 0.3 w
 56.69 206.93 141.73 141.73 re S
 0 g
@@ -275,7 +279,8 @@ BT /F1 7.5 Tf 269.29 379.84 Td (ID 3 - ZADNI stena. Horni hrana tagu nahoru \(k 
 0.4 g
 121.89 342.28 m 133.23 342.28 l 127.56 347.95 l f
 0 g
-BT /F1 7.5 Tf 56.69 192.76 Td (ID 4 - LEVA stena \(pri pohledu na ID 2\). Horni hrana nahoru.) Tj ET
+BT /F1 8.5 Tf 56.69 192.76 Td (ID 4 – LEVÁ stìna \(pøi pohledu na ID 2\)) Tj ET
+BT /F1 7.5 Tf 56.69 181.42 Td (Horní hrana tagu nahoru \(k ID 0\).) Tj ET
 0.6 G 0.3 w
 269.29 206.93 141.73 141.73 re S
 0 g
@@ -320,22 +325,27 @@ BT /F1 7.5 Tf 56.69 192.76 Td (ID 4 - LEVA stena \(pri pohledu na ID 2\). Horni 
 0.4 g
 334.49 342.28 m 345.83 342.28 l 340.16 347.95 l f
 0 g
-BT /F1 7.5 Tf 269.29 192.76 Td (ID 5 - PRAVA stena \(pri pohledu na ID 2\). Horni hrana nahoru.) Tj ET
+BT /F1 8.5 Tf 269.29 192.76 Td (ID 5 – PRAVÁ stìna \(pøi pohledu na ID 2\)) Tj ET
+BT /F1 7.5 Tf 269.29 181.42 Td (Horní hrana tagu nahoru \(k ID 0\).) Tj ET
 endstream
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding 6 0 R >>
+endobj
+6 0 obj
+<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [138 /Scaron 141 /Tcaron 142 /Zcaron 150 /endash 154 /scaron 157 /tcaron 158 /zcaron 193 /Aacute 200 /Ccaron 201 /Eacute 204 /Ecaron 205 /Iacute 207 /Dcaron 210 /Ncaron 211 /Oacute 216 /Rcaron 217 /Uring 218 /Uacute 221 /Yacute 225 /aacute 232 /ccaron 233 /eacute 236 /ecaron 237 /iacute 239 /dcaron 242 /ncaron 243 /oacute 248 /rcaron 249 /uring 250 /uacute 253 /yacute] >>
 endobj
 xref
-0 6
+0 7
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
 0000000115 00000 n 
 0000000247 00000 n 
-0000010993 00000 n 
+0000011280 00000 n 
+0000011366 00000 n 
 trailer
-<< /Size 6 /Root 1 0 R >>
+<< /Size 7 /Root 1 0 R >>
 startxref
-11090
+11819
 %%EOF

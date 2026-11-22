@@ -28,14 +28,29 @@ BIT_Y = [-2, -2, -2, -2, -2, -2, -2, -2, 1, 1, -2, -1, 0, 1, 2, 3, 4, 5, 1, 2, 6
 CODES = [0x1bd8a64ad10, 0x1bdc4f3b2d5, 0x1bdff82b89a, 0x1be3a11be5f, 0x1be74a0c424, 0x1beaf2fc9e9]
 
 # Face for each tag ID; must match MR_app/Assets/App/Games/CubeArc/Scripts/Core/CubeFaceLayout.cs
+# (title, detail) printed as two lines under each face
 FACES = [
-    "ID 0 - HORNI stena. Horni hrana tagu ke stene ID 3.",
-    "ID 1 - SPODNI stena. Horni hrana tagu ke stene ID 3.",
-    "ID 2 - PREDNI stena. Horni hrana tagu nahoru (k ID 0).",
-    "ID 3 - ZADNI stena. Horni hrana tagu nahoru (k ID 0).",
-    "ID 4 - LEVA stena (pri pohledu na ID 2). Horni hrana nahoru.",
-    "ID 5 - PRAVA stena (pri pohledu na ID 2). Horni hrana nahoru.",
+    ("ID 0 – HORNÍ stěna", "Horní hrana tagu ke stěně ID 3."),
+    ("ID 1 – SPODNÍ stěna", "Horní hrana tagu ke stěně ID 3."),
+    ("ID 2 – PŘEDNÍ stěna", "Horní hrana tagu nahoru (k ID 0)."),
+    ("ID 3 – ZADNÍ stěna", "Horní hrana tagu nahoru (k ID 0)."),
+    ("ID 4 – LEVÁ stěna (při pohledu na ID 2)", "Horní hrana tagu nahoru (k ID 0)."),
+    ("ID 5 – PRAVÁ stěna (při pohledu na ID 2)", "Horní hrana tagu nahoru (k ID 0)."),
 ]
+
+# Text is written in Windows-1250 (Central European) and the font gets a /Differences
+# encoding that names the glyph for each Czech character, so diacritics print correctly
+# with the standard Helvetica font (no font embedding needed).
+TEXT_CODEC = "cp1250"
+GLYPH_NAMES = {
+    "á": "aacute", "č": "ccaron", "ď": "dcaron", "é": "eacute", "ě": "ecaron", "í": "iacute",
+    "ň": "ncaron", "ó": "oacute", "ř": "rcaron", "š": "scaron", "ť": "tcaron", "ú": "uacute",
+    "ů": "uring", "ý": "yacute", "ž": "zcaron",
+    "Á": "Aacute", "Č": "Ccaron", "Ď": "Dcaron", "É": "Eacute", "Ě": "Ecaron", "Í": "Iacute",
+    "Ň": "Ncaron", "Ó": "Oacute", "Ř": "Rcaron", "Š": "Scaron", "Ť": "Tcaron", "Ú": "Uacute",
+    "Ů": "Uring", "Ý": "Yacute", "Ž": "Zcaron",
+    "–": "endash",
+}
 
 MM = 72.0 / 25.4  # PDF points per millimetre
 PAGE_W, PAGE_H = 210 * MM, 297 * MM
@@ -61,6 +76,9 @@ def tag_cells(tag_id):
 
 
 def pdf_text(x, y, size, text):
+    unsupported = {ch for ch in text if ord(ch) > 127 and ch not in GLYPH_NAMES}
+    if unsupported:
+        raise ValueError(f"add these characters to GLYPH_NAMES: {''.join(sorted(unsupported))}")
     safe = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
     return f"BT /F1 {size:.1f} Tf {x:.2f} {y:.2f} Td ({safe}) Tj ET\n"
 
@@ -74,9 +92,9 @@ def build_page(edge_mm, cell_mm):
         return PAGE_H - mm_from_top * MM
 
     ops.append("0 g\n")
-    ops.append(pdf_text(15 * MM, top(14), 13, f"Cube Arc - markery na kostku {edge_mm:g} mm (AprilTag tagStandard41h12)"))
-    ops.append(pdf_text(15 * MM, top(20), 9, "Tisknout ve 100 % (bez prizpusobeni strance). Zkontrolujte meritko pravitkem:"))
-    ops.append(pdf_text(15 * MM, top(25), 9, f"Unity / AprilTagCubeTracker: cubeEdge = {edge_mm / 1000:.3f}, tagSize = {cell_mm * WIDTH_AT_BORDER / 1000:.4f}"))
+    ops.append(pdf_text(15 * MM, top(14), 13, f"Cube Arc – markery na kostku {edge_mm:g} mm (AprilTag tagStandard41h12)"))
+    ops.append(pdf_text(15 * MM, top(20), 9, "Tiskněte ve 100 % (bez přizpůsobení stránce). Pravítkem zkontrolujte, že měřítko měří 100 mm:"))
+    ops.append(pdf_text(15 * MM, top(25), 9, f"Nastavení v Unity (AprilTagCubeTracker): cubeEdge = {edge_mm / 1000:.3f}, tagSize = {cell_mm * WIDTH_AT_BORDER / 1000:.4f}"))
 
     # 100 mm scale bar
     bar_y = top(31)
@@ -119,9 +137,18 @@ def build_page(edge_mm, cell_mm):
         ops.append(f"{ax - 2 * MM:.2f} {ay - 1 * MM:.2f} m {ax + 2 * MM:.2f} {ay - 1 * MM:.2f} l {ax:.2f} {ay + 1 * MM:.2f} l f\n")
 
         ops.append("0 g\n")
-        ops.append(pdf_text(cx, face_bottom - 5 * MM, 7.5, FACES[tag_id]))
+        title, detail = FACES[tag_id]
+        ops.append(pdf_text(cx, face_bottom - 5 * MM, 8.5, title))
+        ops.append(pdf_text(cx, face_bottom - 9 * MM, 7.5, detail))
 
     return "".join(ops)
+
+
+def font_encoding():
+    """WinAnsi base encoding with the Windows-1250 codes of the Czech characters mapped to their glyphs."""
+    diffs = sorted((ch.encode(TEXT_CODEC)[0], name) for ch, name in GLYPH_NAMES.items())
+    entries = " ".join(f"{code} /{name}" for code, name in diffs)
+    return f"<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [{entries}] >>"
 
 
 def write_pdf(path, content):
@@ -130,14 +157,15 @@ def write_pdf(path, content):
         "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
         f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {PAGE_W:.2f} {PAGE_H:.2f}] "
         "/Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
-        f"<< /Length {len(content.encode('latin-1'))} >>\nstream\n{content}endstream",
-        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
+        f"<< /Length {len(content.encode(TEXT_CODEC))} >>\nstream\n{content}endstream",
+        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding 6 0 R >>",
+        font_encoding(),
     ]
     out = bytearray(b"%PDF-1.4\n")
     offsets = []
     for i, body in enumerate(objects, start=1):
         offsets.append(len(out))
-        out += f"{i} 0 obj\n{body}\nendobj\n".encode("latin-1")
+        out += f"{i} 0 obj\n{body}\nendobj\n".encode(TEXT_CODEC)
     xref = len(out)
     out += f"xref\n0 {len(objects) + 1}\n0000000000 65535 f \n".encode("latin-1")
     for off in offsets:
