@@ -15,6 +15,10 @@ def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)
     """
     Vytvoří nového pacienta. Nejdřív zkontroluje, jestli kód už neexistuje.
     """
+    patient.patient_code = patient.patient_code.strip()
+    if not patient.patient_code:
+        raise HTTPException(status_code=422, detail="Kód pacienta nesmí být prázdný.")
+
     db_patient = services.get_patient_by_code(db, patient_code=patient.patient_code)
     
     if db_patient:

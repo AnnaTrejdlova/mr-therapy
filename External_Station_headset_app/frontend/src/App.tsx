@@ -118,13 +118,14 @@ function App() {
   }, []);
 
   const handleCreatePatient = async () => {
-    if (!newPatientName.trim()) return;
+    const patientCode = newPatientName.trim();
+    if (!patientCode) return;
 
     try {
       setIsCreatingPatient(true);
-      
+
       const newPatient = await PatientsService.createPatientApiPatientsPatientsPost({
-        patient_code: newPatientName
+        patient_code: patientCode
       });
 
       // Okamžité přidání do lokálního stavu 
@@ -137,9 +138,10 @@ function App() {
       setNewPatientName("");
       setPatientModalOpen(false);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Chyba při vytváření pacienta:", error);
-      alert("Nepodařilo se vytvořit pacienta.");
+      const detail = error?.body?.detail;
+      alert(typeof detail === 'string' ? detail : "Nepodařilo se vytvořit pacienta.");
     } finally {
       setIsCreatingPatient(false);
     }
