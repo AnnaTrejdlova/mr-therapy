@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraAccess: {fileID: 0}
-  cubeEdge: 0.05
+  cubeEdge: 0.055
   tagSize: 0.025
   tagZPointsIntoCube: 1
   quadDecimation: 2
@@ -188,6 +188,6 @@ MonoBehaviour:
   forceControllerSource: 0
   visualsMaterial: {fileID: 2100000, guid: a8c76c38864381c42a42e42bb0d0e3fe, type: 2}
   debugOverlay: {fileID: 2697971455664518447}
-  showTrackingDebug: 0
+  showTrackingDebug: 1
   autoStartInEditor: 0
   editorDifficulty: 1
