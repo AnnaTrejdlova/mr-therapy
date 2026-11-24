@@ -96,6 +96,18 @@ Ujistěte se, že máte headset Meta Quest 3 připojený k PC a v Unity je zvole
 
 Hra *Přenášení kostky po oblouku* sleduje skutečnou kostku kamerou brýlí. Na každé stěně kostky musí být nalepený jeden AprilTag marker (rodina `tagStandard41h12`, ID 0–5).
 
+Obrázkové návody a archy k tisku (vše v `Documentation/markers/`):
+
+| Soubor | K čemu je |
+|---|---|
+| [Navod_lepeni_markeru.pdf](markers/Navod_lepeni_markeru.pdf) | návod: nalepení šesti čtverců z archu `cube_markers_50mm.pdf` na hotovou kostku |
+| [Navod_kostka_z_kartonu.pdf](markers/Navod_kostka_z_kartonu.pdf) | návod: výroba kostky z lepenky (šest dílů) nebo tenkého kartonu (z jednoho kusu) a její obalení |
+| [cube_wrap_50mm.pdf](markers/cube_wrap_50mm.pdf) | tisk 1:1: obal s markery z jednoho kusu (strana 1), šablona na lepenku 3 mm (strana 2), šablony z jednoho kusu na karton 0,5 a 1 mm (strany 3 a 4) |
+| [Navod_rubikova_kostka.pdf](markers/Navod_rubikova_kostka.pdf) | návod: rychlý prototyp z Rubikovy kostky 55 mm, na kostku nepřijde žádné lepidlo |
+| [cube_sleeve_55mm.pdf](markers/cube_sleeve_55mm.pdf) | tisk 1:1: návlek s markery na Rubikovu kostku 55 mm |
+
+Obal a šablonu pro jinou velikost (40–60 mm) nebo tloušťku lepenky vygeneruje `generate_cube_wrap.py --edge-mm 45 --board-mm 4 --card-mm 0.8`, návlek `generate_cube_wrap.py --edge-mm 55 --sleeve --cell-mm 5`, návody `generate_cube_manuals.py` (potřebuje Chrome nebo Edge; návody jsou pro 50 mm, návlek pro 55 mm). Návlek má tagy stejně velké jako kostka 50 mm, takže `tagSize` zůstává 0,025; `cubeEdge` je přesněji 0,055 (bez změny je střed kostky posunutý asi o 2,5 mm).
+
 **1. Tisk markerů**
 Hotový arch pro kostku o hraně 50 mm je v `Documentation/markers/cube_markers_50mm.pdf` (tag má 45 mm). Tiskněte ve **100 %** (vypněte „Přizpůsobit stránce“) a pravítkem zkontrolujte, že měřítko 100 mm na archu opravdu měří 100 mm. Tiskněte matně, lesklý papír odráží světlo a detekce pak selhává.
 

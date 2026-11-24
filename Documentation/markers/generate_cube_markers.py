@@ -52,6 +52,9 @@ GLYPH_NAMES = {
     "–": "endash",
 }
 
+# Characters with the same code in Windows-1250 and in the WinAnsi base encoding need no glyph name.
+SAME_IN_WINANSI = {"×"}
+
 MM = 72.0 / 25.4  # PDF points per millimetre
 PAGE_W, PAGE_H = 210 * MM, 297 * MM
 
@@ -75,8 +78,13 @@ def tag_cells(tag_id):
     return grid
 
 
+def cell_size_mm(edge_mm):
+    """Tag fills ~90 % of the face; cell size rounded down to 0.1 mm so it prints cleanly."""
+    return math.floor(edge_mm * 0.9 / TOTAL_WIDTH * 10) / 10
+
+
 def pdf_text(x, y, size, text):
-    unsupported = {ch for ch in text if ord(ch) > 127 and ch not in GLYPH_NAMES}
+    unsupported = {ch for ch in text if ord(ch) > 127 and ch not in GLYPH_NAMES and ch not in SAME_IN_WINANSI}
     if unsupported:
         raise ValueError(f"add these characters to GLYPH_NAMES: {''.join(sorted(unsupported))}")
     safe = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
@@ -151,16 +159,21 @@ def font_encoding():
     return f"<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [{entries}] >>"
 
 
-def write_pdf(path, content):
+def write_pdf(path, pages):
+    """Writes an A4 PDF with one page per content stream in `pages`."""
+    font_id = 3 + 2 * len(pages)
+    kids = " ".join(f"{3 + 2 * i} 0 R" for i in range(len(pages)))
     objects = [
         "<< /Type /Catalog /Pages 2 0 R >>",
-        "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-        f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {PAGE_W:.2f} {PAGE_H:.2f}] "
-        "/Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
-        f"<< /Length {len(content.encode(TEXT_CODEC))} >>\nstream\n{content}endstream",
-        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding 6 0 R >>",
-        font_encoding(),
+        f"<< /Type /Pages /Kids [{kids}] /Count {len(pages)} >>",
     ]
+    for i, content in enumerate(pages):
+        objects.append(
+            f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {PAGE_W:.2f} {PAGE_H:.2f}] "
+            f"/Resources << /Font << /F1 {font_id} 0 R >> >> /Contents {4 + 2 * i} 0 R >>")
+        objects.append(f"<< /Length {len(content.encode(TEXT_CODEC))} >>\nstream\n{content}endstream")
+    objects.append(f"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding {font_id + 1} 0 R >>")
+    objects.append(font_encoding())
     out = bytearray(b"%PDF-1.4\n")
     offsets = []
     for i, body in enumerate(objects, start=1):
@@ -184,10 +197,9 @@ def main():
     if not 40 <= args.edge_mm <= 85:
         parser.error("--edge-mm must be between 40 and 85 (six faces have to fit on one A4 page)")
 
-    # Tag fills ~90 % of the face; cell size rounded down to 0.1 mm so it prints cleanly.
-    cell_mm = math.floor(args.edge_mm * 0.9 / TOTAL_WIDTH * 10) / 10
+    cell_mm = cell_size_mm(args.edge_mm)
     out = args.out or f"cube_markers_{args.edge_mm:g}mm.pdf"
-    write_pdf(out, build_page(args.edge_mm, cell_mm))
+    write_pdf(out, [build_page(args.edge_mm, cell_mm)])
 
     print(f"Wrote {out}")
     print(f"cubeEdge = {args.edge_mm / 1000:.3f} m, tagSize = {cell_mm * WIDTH_AT_BORDER / 1000:.4f} m "
