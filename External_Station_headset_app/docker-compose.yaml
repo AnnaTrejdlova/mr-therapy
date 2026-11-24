@@ -7,54 +7,54 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - "5433:5432" 
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # Service 2: The Backend 
+  # Service 2: The Backend
   backend:
     build: ./backend
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
       - ./backend/.env
     ports:
-      - "8000:8000"  
+      - "8000:8000"
     volumes:
       - ./backend/app:/code/app
     depends_on:
       - db
-      - mqtt_broker
+      # - mqtt_broker
 
   # Service 3: The MQTT Broker (shared with the MR headset app over the LAN)
-  mqtt_broker:
-    image: eclipse-mosquitto:2
-    restart: unless-stopped
-    # MQTT_USERNAME / MQTT_PASSWORD come from the same .env the backend uses.
-    env_file:
-      - ./backend/.env
-    # On every start, (re)create the broker's only user from .env, then start Mosquitto.
-    # The password file lives inside the container, not in the mounted folder, so it
-    # always matches .env and needs no manual chown. Change the password in .env and
-    # run `docker compose up -d` to apply it (a plain `restart` does not re-read .env).
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - |
-        set -e
-        : "$${MQTT_USERNAME:?MQTT_USERNAME is missing in backend/.env}"
-        : "$${MQTT_PASSWORD:?MQTT_PASSWORD is missing in backend/.env}"
-        mosquitto_passwd -b -c /mosquitto/passwd "$$MQTT_USERNAME" "$$MQTT_PASSWORD"
-        chown mosquitto:mosquitto /mosquitto/passwd
-        chmod 600 /mosquitto/passwd
-        chown -R mosquitto:mosquitto /mosquitto/data
-        echo "MQTT user '$$MQTT_USERNAME' set from backend/.env"
-        exec mosquitto -c /mosquitto/config/mosquitto.conf
-    ports:
-      # Host port 11883: Windows/Hyper-V often reserves 1835-1934, which blocks 1883.
-      # The backend talks to mqtt_broker:1883 inside Docker; the headset uses <PC LAN IP>:11883.
-      - "11883:1883"
-    volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
+  # mqtt_broker:
+  #   image: eclipse-mosquitto:2
+  #   restart: unless-stopped
+  #   # MQTT_USERNAME / MQTT_PASSWORD come from the same .env the backend uses.
+  #   env_file:
+  #     - ./backend/.env
+  #   # On every start, (re)create the broker's only user from .env, then start Mosquitto.
+  #   # The password file lives inside the container, not in the mounted folder, so it
+  #   # always matches .env and needs no manual chown. Change the password in .env and
+  #   # run `docker compose up -d` to apply it (a plain `restart` does not re-read .env).
+  #   entrypoint: ["/bin/sh", "-c"]
+  #   command:
+  #     - |
+  #       set -e
+  #       : "$${MQTT_USERNAME:?MQTT_USERNAME is missing in backend/.env}"
+  #       : "$${MQTT_PASSWORD:?MQTT_PASSWORD is missing in backend/.env}"
+  #       mosquitto_passwd -b -c /mosquitto/passwd "$$MQTT_USERNAME" "$$MQTT_PASSWORD"
+  #       chown mosquitto:mosquitto /mosquitto/passwd
+  #       chmod 600 /mosquitto/passwd
+  #       chown -R mosquitto:mosquitto /mosquitto/data
+  #       echo "MQTT user '$$MQTT_USERNAME' set from backend/.env"
+  #       exec mosquitto -c /mosquitto/config/mosquitto.conf
+  #   ports:
+  #     # Host port 11883: Windows/Hyper-V often reserves 1835-1934, which blocks 1883.
+  #     # The backend talks to mqtt_broker:1883 inside Docker; the headset uses <PC LAN IP>:11883.
+  #     - "11883:1883"
+  #   volumes:
+  #     - ./mosquitto/config:/mosquitto/config
+  #     - ./mosquitto/data:/mosquitto/data
 
   # Service 4: The Frontend
   frontend:
